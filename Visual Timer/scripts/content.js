@@ -14,8 +14,12 @@ badge.addEventListener('click', () => {
   container.style.zIndex = '101'; // Ensure it appears above other content
 
   function getRandomColor() {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
-  }
+    var red = Math.floor(Math.random() * 256);
+    var green = Math.floor(Math.random() * 256);
+    var blue = Math.floor(Math.random() * 256);
+
+    return 'rgb(' + red + ',' + green + ',' + blue + ')';
+}
 
   var parallelogram = document.createElement('div');
   parallelogram.style.backgroundColor = getRandomColor();
@@ -38,8 +42,6 @@ badge.addEventListener('click', () => {
     var initialDirectionY = 1;
     var directionX = initialDirectionX;
     var directionY = initialDirectionY;
-    var containerWidth = window.innerWidth;
-    var containerHeight = window.innerHeight;
     var animationDuration = 60000; // 1 minitue
 
     var startTime = performance.now();
