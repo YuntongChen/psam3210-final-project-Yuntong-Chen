@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Visual Timer",
   "version": "1.0",
-  "description": "It's a visual timer that only functions during business hour",
+  "description": "It's a visual timer that counts every 30 seconds",
   "icons": {
     "16": "images/icon-16.png",
     "32": "images/icon-32.png",
