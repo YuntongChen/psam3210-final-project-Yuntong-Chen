@@ -6,6 +6,13 @@ badge.style.zIndex = '10000';
 badge.style.fontSize = '50px';
 badge.innerText = '🔲';
 
+const addMoreButton = document.createElement('button');
+addMoreButton.style.position = 'fixed';
+addMoreButton.style.bottom = '20px';
+addMoreButton.style.right = '20px';
+addMoreButton.style.zIndex = '10000';
+addMoreButton.innerText = '◾️';
+
 badge.addEventListener('click', () => {
   const container = document.createElement('div');
   container.style.position = 'relative';
@@ -75,7 +82,7 @@ badge.addEventListener('click', () => {
         if (currentWidth <= 0 || currentHeight <= 0) {
             clearInterval(intervalId);
         }
-    }, 50); // Increase the interval time for a slower movement
+    }, 60); // Increase the interval time for a slower movement
 }
 
   container.appendChild(parallelogram);
@@ -130,10 +137,10 @@ function animateShape(shape) {
 }
 
   animateShape(shape);
-  
+
   // put the web context into the same container with shapes
   let els = Array.from(document.body.children).filter(el => el !== parallelogram);
- els.forEach((el) => {
+   els.forEach((el) => {
    el.style.mixBlendMode = 'difference';
    el.style.color = '#fff';
    container.appendChild(el);
@@ -141,7 +148,88 @@ function animateShape(shape) {
 
 });
 
+addMoreButton.addEventListener('click', () => {
+
+  const container = document.createElement('div');
+  container.style.position = 'relative';
+  container.style.width = '100vw';
+  container.style.height = '100vh';
+  container.style.zIndex = '101'; // Ensure it appears above other content
+
+  document.body.appendChild(addMoreButton);
+
+  document.body.appendChild(container);
+
+  function getRandomColor() {
+    var red = Math.floor(Math.random() * 256);
+    var green = Math.floor(Math.random() * 256);
+    var blue = Math.floor(Math.random() * 256);
+
+    return 'rgb(' + red + ',' + green + ',' + blue + ')';
+}
+
+  // Create the third shape
+  var triangle = document.createElement('div');
+  triangle.style.backgroundColor = getRandomColor();
+  triangle.style.width = '50px';
+  triangle.style.height = '450px';
+  triangle.style.position = 'fixed';
+
+  var initialLeft = 530;
+  var initialBottom = 400; 
+  triangle.style.left = initialLeft + 'px';
+  triangle.style.bottom = initialBottom + 'px';
+
+  container.appendChild(triangle);
+
+  function animateTriangle(triangle) {
+    var positionX = parseInt(triangle.style.left);
+    var positionY = parseInt(triangle.style.bottom);
+    var initialDirectionX = 2;
+    var initialDirectionY = -1;
+    var directionX = initialDirectionX;
+    var directionY = initialDirectionY;
+    var animationDuration = 30000;
+    var startTime = performance.now();
+  
+    var intervalId = setInterval(function () {
+      var elapsedTime = performance.now() - startTime;
+  
+      if (elapsedTime >= animationDuration) {
+        clearInterval(intervalId);
+        return;
+      }
+  
+      positionX += 1 * directionX;
+      positionY += 1 * directionY;
+  
+      triangle.style.left = positionX + 'px';
+      triangle.style.bottom = positionY + 'px';
+  
+      var currentWidth = parseInt(triangle.style.width);
+      var currentHeight = parseInt(triangle.style.height);
+      triangle.style.height = (currentHeight - 0.01) + 'px';
+  
+      if (currentWidth <= 0 || currentHeight <= 0) {
+        clearInterval(intervalId);
+    }
+    }, 50); 
+  }
+
+  animateTriangle(triangle);
+
+  let els = Array.from(document.body.children).filter(el => el !== triangle);
+   els.forEach((el) => {
+   el.style.mixBlendMode = 'difference';
+   el.style.color = '#fff';
+   container.appendChild(el);
+ });
+
+
+});
+
 document.documentElement.appendChild(badge);
+document.documentElement.appendChild(addMoreButton);
 
 
 
